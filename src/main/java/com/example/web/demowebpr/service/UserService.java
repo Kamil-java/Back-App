@@ -1,6 +1,7 @@
 package com.example.web.demowebpr.service;
 
 import com.example.web.demowebpr.dao.UserRepository;
+import com.example.web.demowebpr.dao.entity.Diets;
 import com.example.web.demowebpr.dao.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+
 
     @Autowired
     public UserService(UserRepository userRepository) {
