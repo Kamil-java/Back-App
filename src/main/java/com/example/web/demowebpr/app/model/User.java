@@ -1,4 +1,6 @@
-package com.example.web.demowebpr.dao.entity;
+package com.example.web.demowebpr.app.model;
+
+import com.example.web.demowebpr.app.mechanic.CalculatorKcal;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,18 +15,17 @@ public class User {
     private int weight;
     @NotBlank
     private String sex;
-    @OneToOne
-    private CalculatorKcal kcal;
+    private double result;
 
     public User() {
     }
 
-    public User(int age, int height, int weight, @NotBlank String sex, CalculatorKcal kcal) {
+    public User(int age, int height, int weight, @NotBlank String sex) {
         this.age = age;
         this.height = height;
         this.weight = weight;
         this.sex = sex;
-        this.kcal = kcal;
+        this.result = getResult();
     }
 
     public Integer getId() {
@@ -63,11 +64,12 @@ public class User {
         this.sex = sex;
     }
 
-    public CalculatorKcal getKcal() {
-        return kcal;
+    public double getResult() {
+        return result;
     }
 
-    public void setKcal(CalculatorKcal kcal) {
-        this.kcal = kcal;
+    public double setResult(double result) {
+        this.result = result;
+            return result;
     }
 }

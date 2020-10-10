@@ -1,4 +1,4 @@
-package com.example.web.demowebpr.mechanic;
+package com.example.web.demowebpr.app.mechanic;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

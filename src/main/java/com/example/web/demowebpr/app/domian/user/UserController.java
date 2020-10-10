@@ -1,8 +1,8 @@
-package com.example.web.demowebpr.api;
+package com.example.web.demowebpr.app.domian.user;
 
-import com.example.web.demowebpr.dao.entity.CalculatorKcal;
-import com.example.web.demowebpr.dao.entity.User;
-import com.example.web.demowebpr.service.UserService;
+import com.example.web.demowebpr.app.mechanic.CalculatorKcal;
+import com.example.web.demowebpr.app.model.User;
+import com.example.web.demowebpr.app.domian.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -27,10 +27,7 @@ public class UserController {
         return userService.getAll();
     }
 
-    @GetMapping("/result/{id}")
-    public double getResult(@PathVariable int id) {
-        return new CalculatorKcal(getUser(id)).bmi();
-    }
+
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable Integer id) {
@@ -42,16 +39,18 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
     public User addUser(@RequestBody @Validated User user) {
+        user.setResult(new CalculatorKcal(user).bmi());
         return userService.addUser(user);
     }
 
-    @PutMapping("/")
-    public User updateUser(@RequestBody @Validated User user) {
-        User oldUser = userService.getUserById(user.getId()).orElse(addUser(user));
+    @PutMapping("/{id}")
+    public User updateUser(@RequestBody @Validated User user, @PathVariable int id) {
+        User oldUser = userService.getUserById(id).orElse(addUser(user));
         oldUser.setAge(user.getAge());
         oldUser.setHeight(user.getHeight());
         oldUser.setWeight(user.getWeight());
         oldUser.setSex(user.getSex());
+        oldUser.setResult(new CalculatorKcal(oldUser).bmi());
         return userService.addUser(oldUser);
     }
 

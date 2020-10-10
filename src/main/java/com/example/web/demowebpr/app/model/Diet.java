@@ -1,20 +1,24 @@
-package com.example.web.demowebpr.dao.entity;
+package com.example.web.demowebpr.app.model;
+
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Diets {
+public class Diet {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank
     private String diet;
 
-    public Diets() {
+    public Diet() {
     }
 
-    public Diets(String diet) {
+    public Diet(@NotBlank @Validated String diet) {
         this.diet = diet;
     }
 

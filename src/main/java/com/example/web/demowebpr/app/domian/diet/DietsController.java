@@ -1,7 +1,7 @@
-package com.example.web.demowebpr.api;
+package com.example.web.demowebpr.app.domian.diet;
 
-import com.example.web.demowebpr.dao.entity.Diets;
-import com.example.web.demowebpr.service.DietsService;
+import com.example.web.demowebpr.app.model.Diet;
+import com.example.web.demowebpr.app.domian.diet.service.DietsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/diet")
 @CrossOrigin
 public class DietsController {
     private final DietsService dietsService;
@@ -19,40 +19,41 @@ public class DietsController {
     @Autowired
     public DietsController(DietsService dietsService) {
         this.dietsService = dietsService;
+        dietsService.addDB();
     }
 
-    @GetMapping("/diets")
-    public List<Diets> getAll() {
+    @GetMapping("/")
+    public List<Diet> getAll() {
         return dietsService.getAllDiets();
     }
 
-    @GetMapping("/diet/{id}")
-    public Diets getDietsById(@PathVariable int id) {
+    @GetMapping("/{id}")
+    public Diet getDietsById(@PathVariable int id) {
         return dietsService.getDietById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/diet")
-    public Diets addDiet(@RequestBody @Validated Diets diets) {
-        return dietsService.addDiets(diets);
+    @PostMapping("/")
+    public Diet addDiet(@RequestBody @Validated Diet diet) {
+        return dietsService.addDiets(diet);
     }
 
-    @PutMapping("/diet")
-    public Diets updateDiet(@RequestBody @Validated Diets diets) {
-        Diets oldDiet = dietsService.getDietById(diets.getId()).orElse(addDiet(diets));
-        oldDiet.setDiet(diets.getDiet());
+    @PutMapping("/{id}")
+    public Diet updateDiet(@RequestBody @Validated Diet diet,@PathVariable int id) {
+        Diet oldDiet = dietsService.getDietById(id).orElse(addDiet(diet));
+        oldDiet.setDiet(diet.getDiet());
         return dietsService.addDiets(oldDiet);
     }
 
-    @DeleteMapping("/diets/all")
+    @DeleteMapping("/all")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAll() {
         dietsService.deleteAll();
     }
 
-    @DeleteMapping("/diet/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable int id) {
         dietsService.deleteDietsById(id);

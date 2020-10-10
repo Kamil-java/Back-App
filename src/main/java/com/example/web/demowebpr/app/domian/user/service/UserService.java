@@ -1,8 +1,7 @@
-package com.example.web.demowebpr.service;
+package com.example.web.demowebpr.app.domian.user.service;
 
-import com.example.web.demowebpr.dao.UserRepository;
-import com.example.web.demowebpr.dao.entity.Diets;
-import com.example.web.demowebpr.dao.entity.User;
+import com.example.web.demowebpr.app.dao.UserRepository;
+import com.example.web.demowebpr.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +18,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAll(){
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Integer id){
+    public Optional<User> getUserById(Integer id) {
         return userRepository.findById(id);
     }
 
-    public User addUser(User user){
+    public User addUser(User user) {
         return userRepository.save(user);
     }
 
-    public void deleteUserById(Integer id){
+    public void deleteUserById(Integer id) {
         userRepository.deleteById(id);
     }
 }

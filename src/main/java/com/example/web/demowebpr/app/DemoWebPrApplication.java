@@ -1,4 +1,4 @@
-package com.example.web.demowebpr;
+package com.example.web.demowebpr.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
