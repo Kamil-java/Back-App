@@ -1,11 +1,31 @@
-package com.example.web.demowebpr.mechanic;
+package com.example.web.demowebpr.dao.entity;
 
-import com.example.web.demowebpr.dao.entity.User;
+import javax.persistence.*;
 
+@Entity
 public class CalculatorKcal {
-    private final User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @OneToOne
+    private User user;
+
+    public CalculatorKcal() {
+    }
 
     public CalculatorKcal(User user) {
+        this.user = user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 

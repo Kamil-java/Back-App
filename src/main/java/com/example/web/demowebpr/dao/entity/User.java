@@ -1,11 +1,6 @@
 package com.example.web.demowebpr.dao.entity;
 
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -18,15 +13,18 @@ public class User {
     private int weight;
     @NotBlank
     private String sex;
+    @OneToOne
+    private CalculatorKcal kcal;
 
     public User() {
     }
 
-    public User(int age, int height, int weight, @NotBlank @Validated String sex) {
+    public User(int age, int height, int weight, @NotBlank String sex, CalculatorKcal kcal) {
         this.age = age;
         this.height = height;
         this.weight = weight;
         this.sex = sex;
+        this.kcal = kcal;
     }
 
     public Integer getId() {
@@ -63,5 +61,13 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public CalculatorKcal getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(CalculatorKcal kcal) {
+        this.kcal = kcal;
     }
 }
