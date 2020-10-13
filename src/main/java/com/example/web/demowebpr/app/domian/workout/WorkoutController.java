@@ -8,6 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.constraints.Min;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -28,21 +30,39 @@ public class WorkoutController {
     }
 
     @GetMapping("/{id}")
-    public Workout getDietsById(@PathVariable int id) {
+    public Workout getWorkoutById(@PathVariable int id) {
         return workoutService.getWorkoutById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
     }
 
+    @GetMapping("/intensive")
+    public List<Workout> getIntensiveWorkout(){
+        List<Workout> workouts = new LinkedList<>();
+        for (Workout workout : getAll()) {
+            if (workout.getIntensity()==2){
+                workouts.add(workout);
+            }
+        }
+        if (workouts.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return workouts;
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public Workout addDiet(@RequestBody @Validated Workout workout) {
+    public Workout addWorkout(@RequestBody @Validated Workout workout) {
+        if (getAll().size() == 30){
+            throw new ResponseStatusException(HttpStatus.INSUFFICIENT_STORAGE);
+        }
         return workoutService.addWorkout(workout);
     }
 
     @PutMapping("/{id}")
-    public Workout updateDiet(@RequestBody @Validated Workout workout,@PathVariable int id) {
-        Workout oldWorkout = workoutService.getWorkoutById(id).orElse(addDiet(workout));
+    public Workout updateWorkout(@RequestBody @Validated Workout workout,@PathVariable int id) {
+        Workout oldWorkout = workoutService.getWorkoutById(id).orElse(addWorkout(workout));
+        oldWorkout.setTitleWorkout(workout.getTitleWorkout());
         oldWorkout.setWorkout(workout.getWorkout());
         return workoutService.addWorkout(oldWorkout);
     }

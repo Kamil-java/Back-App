@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class WorkoutService {   
+public class WorkoutService {
     private final WorkoutRepository workoutRepository;
 
     @Autowired
     public WorkoutService(WorkoutRepository workoutRepository) {
         this.workoutRepository = workoutRepository;
     }
-    
+
     public void addDB(){
-        workoutRepository.saveAll(new AddFileToDB().addWorkout("FileToRead/Workout.txt"));
+        workoutRepository.saveAll(new AddFileToDB().addWorkout("FileToRead/TitleWorkout.txt","FileToRead/Workout.txt", "FileToRead/Intensity.txt"));
     }
 
     public List<Workout> getAllWorkouts() {

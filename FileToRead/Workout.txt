@@ -4,17 +4,3 @@ example training 3
 example training 4
 example training 5
 example training 6
-example training 7
-example training 8
-example training 9
-example training 10
-example training 11
-example training 12
-example training 13
-example training 14
-example training 15
-example training 16
-example training 17
-example training 18
-example training 19
-example training 20
