@@ -11,9 +11,14 @@ import java.util.stream.Collectors;
 
 public class AddFileToDB {
 
-    public Set<Diet> addDiet(String path){
-        List<String> data = new ReadFile().reader(path);
-        return data.stream().map(Diet::new).collect(Collectors.toCollection(LinkedHashSet::new));
+    public Set<Diet> addDiet(String pathDiet, String pathTitle){
+        List<String> dataDiet = new ReadFile().reader(pathDiet);
+        List<String> dataTitle = new ReadFile().reader(pathTitle);
+        Set<Diet> data =new LinkedHashSet<>();
+        for (int i = 0; i < dataDiet.size(); i++) {
+            crateDiet(data, dataDiet.get(i),dataTitle.get(i));
+        }
+        return data;
     }
     public Set<Workout> addWorkout(String pathTitle, String pathWorkout, String pathIntensity){
         List<String> dataWorkout = new ReadFile().reader(pathWorkout);
@@ -31,6 +36,10 @@ public class AddFileToDB {
     private void crateWorkout(Set<Workout> data, String title, String workout, String intensity) {
         int i = Integer.parseInt(intensity);
         Workout trening = new Workout(title, workout, i);
+        data.add(trening);
+    }
+    private void crateDiet(Set<Diet> data, String title, String diet) {
+        Diet trening = new Diet(title, diet);
         data.add(trening);
     }
 }

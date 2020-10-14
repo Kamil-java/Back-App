@@ -19,7 +19,7 @@ public class DietsService {
     }
 
     public void addDB() {
-        dietsRepository.saveAll(new AddFileToDB().addDiet("FileToRead/Diets.txt"));
+        dietsRepository.saveAll(new AddFileToDB().addDiet("FileToRead/Diets.txt", "FileToRead/TitleDiets.txt"));
     }
 
     public List<Diet> getAllDiets() {

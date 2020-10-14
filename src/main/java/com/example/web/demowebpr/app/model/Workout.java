@@ -19,8 +19,6 @@ public class Workout {
     private String titleWorkout;
     @NotBlank
     private String workout;
-    @Min(1)
-    @Max(2)
     private int intensity;
 
     public Workout() {
@@ -31,7 +29,7 @@ public class Workout {
         this.workout = workout;
     }
 
-    public Workout(@NotBlank String titleWorkout, @NotBlank String workout, @Min(1) @Max(2) int intensity) {
+    public Workout(@NotBlank String titleWorkout, @NotBlank String workout, int intensity) {
         this.titleWorkout = titleWorkout;
         this.workout = workout;
         this.intensity = intensity;

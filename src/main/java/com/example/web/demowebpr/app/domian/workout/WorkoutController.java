@@ -38,17 +38,13 @@ public class WorkoutController {
 
     @GetMapping("/intensive")
     public List<Workout> getIntensiveWorkout(){
-        List<Workout> workouts = new LinkedList<>();
-        for (Workout workout : getAll()) {
-            if (workout.getIntensity()==2){
-                workouts.add(workout);
-            }
-        }
-        if (workouts.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return workouts;
+        return workoutService.getStrongWorkout(2);
     }
+    @GetMapping("/optimal")
+    public List<Workout> getOptimalWorkout(){
+        return workoutService.getStrongWorkout(1);
+    }
+
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
