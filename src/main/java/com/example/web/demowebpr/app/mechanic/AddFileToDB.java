@@ -7,16 +7,16 @@ import com.example.web.demowebpr.app.model.Workout;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class AddFileToDB {
 
-    public Set<Diet> addDiet(String pathDiet, String pathTitle){
+    public Set<Diet> addDiet(String pathDiet, String pathTitle, String pathKcal){
         List<String> dataDiet = new ReadFile().reader(pathDiet);
         List<String> dataTitle = new ReadFile().reader(pathTitle);
+        List<String> kcal = new ReadFile().reader(pathKcal);
         Set<Diet> data =new LinkedHashSet<>();
         for (int i = 0; i < dataDiet.size(); i++) {
-            crateDiet(data, dataDiet.get(i),dataTitle.get(i));
+            crateDiet(data, dataDiet.get(i),dataTitle.get(i), kcal.get(i));
         }
         return data;
     }
@@ -38,8 +38,9 @@ public class AddFileToDB {
         Workout trening = new Workout(title, workout, i);
         data.add(trening);
     }
-    private void crateDiet(Set<Diet> data, String title, String diet) {
-        Diet trening = new Diet(title, diet);
+    private void crateDiet(Set<Diet> data, String title, String diet, String kcal) {
+        int i = Integer.parseInt(kcal);
+        Diet trening = new Diet(title, diet, i);
         data.add(trening);
     }
 }

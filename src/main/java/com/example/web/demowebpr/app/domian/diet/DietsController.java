@@ -34,6 +34,11 @@ public class DietsController {
         );
     }
 
+    @GetMapping("/result/{id}")
+    public Diet getResult(@PathVariable int id){
+        return dietsService.getDietToUserResult(id);
+    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
     public Diet addDiet(@RequestBody @Validated Diet diet) {

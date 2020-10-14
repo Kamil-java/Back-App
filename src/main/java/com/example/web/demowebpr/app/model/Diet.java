@@ -16,15 +16,16 @@ public class Diet {
     private String diet;
     @NotBlank
     private String titleDiet;
+    private int kcal;
 
     public Diet() {
     }
 
-    public Diet(@NotBlank @Validated String diet, @NotBlank @Validated String titleDiet) {
+    public Diet(@NotBlank String diet, @NotBlank String titleDiet, int kcal) {
         this.diet = diet;
         this.titleDiet = titleDiet;
+        this.kcal = kcal;
     }
-
 
     public Integer getId() {
         return id;
@@ -44,5 +45,13 @@ public class Diet {
 
     public void setTitleDiet(String titleDiet) {
         this.titleDiet = titleDiet;
+    }
+
+    public int getKcal() {
+        return kcal;
+    }
+
+    public void setKcal(int kcal) {
+        this.kcal = kcal;
     }
 }
