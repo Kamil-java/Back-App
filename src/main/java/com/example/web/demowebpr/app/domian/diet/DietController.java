@@ -13,11 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/diet")
 @CrossOrigin
-public class DietsController {
+public class DietController {
     private final DietsService dietsService;
 
     @Autowired
-    public DietsController(DietsService dietsService) {
+    public DietController(DietsService dietsService) {
         this.dietsService = dietsService;
         dietsService.addDB();
     }
@@ -37,6 +37,11 @@ public class DietsController {
     @GetMapping("/result/{id}")
     public Diet getResult(@PathVariable int id){
         return dietsService.getDietToUserResult(id);
+    }
+
+    @GetMapping("/for/{id}")
+    public List<Diet> getDietsForAll(@PathVariable int id){
+        return dietsService.getDietsFor(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)

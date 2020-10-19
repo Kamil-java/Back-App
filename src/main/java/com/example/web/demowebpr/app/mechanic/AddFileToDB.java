@@ -10,13 +10,14 @@ import java.util.Set;
 
 public class AddFileToDB {
 
-    public Set<Diet> addDiet(String pathDiet, String pathTitle, String pathKcal){
+    public Set<Diet> addDiet(String pathDiet, String pathTitle, String pathKcal, String pathForWhom){
         List<String> dataDiet = new ReadFile().reader(pathDiet);
         List<String> dataTitle = new ReadFile().reader(pathTitle);
         List<String> kcal = new ReadFile().reader(pathKcal);
+        List<String> forWhom = new ReadFile().reader(pathForWhom);
         Set<Diet> data =new LinkedHashSet<>();
         for (int i = 0; i < dataDiet.size(); i++) {
-            crateDiet(data, dataDiet.get(i),dataTitle.get(i), kcal.get(i));
+            crateDiet(data, dataDiet.get(i),dataTitle.get(i), kcal.get(i), forWhom.get(i));
         }
         return data;
     }
@@ -38,9 +39,10 @@ public class AddFileToDB {
         Workout trening = new Workout(title, workout, i);
         data.add(trening);
     }
-    private void crateDiet(Set<Diet> data, String title, String diet, String kcal) {
+    private void crateDiet(Set<Diet> data, String title, String diet, String kcal, String forWhom) {
         int i = Integer.parseInt(kcal);
-        Diet trening = new Diet(title, diet, i);
+        int f = Integer.parseInt(forWhom);
+        Diet trening = new Diet(title, diet, i, f);
         data.add(trening);
     }
 }

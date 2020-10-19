@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Validated
 @Entity
-public class User {
+public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,10 +30,10 @@ public class User {
     private double result;
 
 
-    public User() {
+    public Person() {
     }
 
-    public User(int age, int height, int weight, @NotBlank String sex, int workoutTime) {
+    public Person(int age, int height, int weight, @NotBlank String sex, int workoutTime) {
         this.age = age;
         this.height = height;
         this.weight = weight;

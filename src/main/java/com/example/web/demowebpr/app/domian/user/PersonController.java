@@ -1,8 +1,8 @@
 package com.example.web.demowebpr.app.domian.user;
 
 import com.example.web.demowebpr.app.mechanic.CalculatorKcal;
-import com.example.web.demowebpr.app.model.User;
-import com.example.web.demowebpr.app.domian.user.service.UserService;
+import com.example.web.demowebpr.app.model.Person;
+import com.example.web.demowebpr.app.domian.user.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,24 +14,24 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/person")
 @CrossOrigin
-public class UserController {
-    private final UserService userService;
+public class PersonController {
+    private final PersonService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public PersonController(PersonService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/")
-    public List<User> getUsers() {
+    public List<Person> getUsers() {
         return userService.getAll();
     }
 
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Integer id) {
+    public Person getUser(@PathVariable Integer id) {
         return userService.getUserById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
@@ -39,27 +39,27 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public User addUser(@RequestBody @Validated User user) {
+    public Person addUser(@RequestBody @Validated Person person) {
         if (getUsers().size() == 4) {
-            throw new ResponseStatusException(HttpStatus.INSUFFICIENT_STORAGE, "You can't add more users!!!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You can't add more users!!!");
         }
-        user.setResult(new CalculatorKcal(user).result());
-        return userService.addUser(user);
+        person.setResult(new CalculatorKcal(person).result());
+        return userService.addUser(person);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody @Validated User user, @PathVariable int id) {
-        User oldUser = userService.getUserById(id).orElse(addUser(user));
-        oldUser.setAge(user.getAge());
-        oldUser.setHeight(user.getHeight());
-        oldUser.setWeight(user.getWeight());
-        oldUser.setSex(user.getSex());
-        oldUser.setWorkoutTime(user.getWorkoutTime());
-        oldUser.setResult(new CalculatorKcal(oldUser).result());
+    public ResponseEntity<Person> updateUser(@RequestBody @Validated Person person, @PathVariable int id) {
+        Person oldPerson = userService.getUserById(id).orElse(addUser(person));
+        oldPerson.setAge(person.getAge());
+        oldPerson.setHeight(person.getHeight());
+        oldPerson.setWeight(person.getWeight());
+        oldPerson.setSex(person.getSex());
+        oldPerson.setWorkoutTime(person.getWorkoutTime());
+        oldPerson.setResult(new CalculatorKcal(oldPerson).result());
         if (userService.getUserById(id).isPresent()) {
-            return ResponseEntity.ok(userService.addUser(oldUser));
+            return ResponseEntity.ok(userService.addUser(oldPerson));
         } else {
-            return ResponseEntity.status(HttpStatus.CREATED).body(oldUser);
+            return ResponseEntity.status(HttpStatus.CREATED).body(oldPerson);
         }
 
 

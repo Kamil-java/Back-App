@@ -3,13 +3,14 @@ package com.example.web.demowebpr.app.domian.diet.service;
 import com.example.web.demowebpr.app.dao.DietsRepository;
 import com.example.web.demowebpr.app.mechanic.AddFileToDB;
 import com.example.web.demowebpr.app.model.Diet;
-import com.example.web.demowebpr.app.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class DietsService {
     }
 
     public void addDB() {
-        dietsRepository.saveAll(new AddFileToDB().addDiet("FileToRead/Diets.txt", "FileToRead/TitleDiets.txt", "FileToRead/Kcal.txt"));
+        dietsRepository.saveAll(new AddFileToDB().addDiet("FileToRead/Diets.txt", "FileToRead/TitleDiets.txt", "FileToRead/Kcal.txt","FileToRead/ForWhom.txt"));
     }
 
     public List<Diet> getAllDiets() {
@@ -44,6 +45,11 @@ public class DietsService {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+
+    public List<Diet> getDietsFor(int id){
+       return dietsRepository.getDietForWhom(id);
+    }
+
 
     public Diet addDiets(Diet diet) {
         return dietsRepository.save(diet);
