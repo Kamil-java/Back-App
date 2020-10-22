@@ -17,47 +17,47 @@ import java.util.List;
 @RequestMapping("/person")
 @CrossOrigin
 public class PersonController {
-    private final PersonService userService;
+    private final PersonService personService;
 
     @Autowired
-    public PersonController(PersonService userService) {
-        this.userService = userService;
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
     @GetMapping("/")
-    public List<Person> getUsers() {
-        return userService.getAll();
+    public List<Person> getPerson() {
+        return personService.getAll();
     }
 
 
     @GetMapping("/{id}")
-    public Person getUser(@PathVariable Integer id) {
-        return userService.getUserById(id).orElseThrow(
+    public Person getPerson(@PathVariable Integer id) {
+        return personService.getPersonById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    public Person addUser(@RequestBody @Validated Person person) {
-        if (getUsers().size() == 4) {
+    public Person addPerson(@RequestBody @Validated Person person) {
+        if (getPerson().size() == 4) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You can't add more users!!!");
         }
         person.setResult(new CalculatorKcal(person).result());
-        return userService.addUser(person);
+        return personService.addUser(person);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Person> updateUser(@RequestBody @Validated Person person, @PathVariable int id) {
-        Person oldPerson = userService.getUserById(id).orElse(addUser(person));
+        Person oldPerson = personService.getPersonById(id).orElse(addPerson(person));
         oldPerson.setAge(person.getAge());
         oldPerson.setHeight(person.getHeight());
         oldPerson.setWeight(person.getWeight());
         oldPerson.setSex(person.getSex());
         oldPerson.setWorkoutTime(person.getWorkoutTime());
         oldPerson.setResult(new CalculatorKcal(oldPerson).result());
-        if (userService.getUserById(id).isPresent()) {
-            return ResponseEntity.ok(userService.addUser(oldPerson));
+        if (personService.getPersonById(id).isPresent()) {
+            return ResponseEntity.ok(personService.addUser(oldPerson));
         } else {
             return ResponseEntity.status(HttpStatus.CREATED).body(oldPerson);
         }
@@ -68,9 +68,9 @@ public class PersonController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Integer id) {
-        if (userService.getUserById(id).isEmpty()) {
+        if (personService.getPersonById(id).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        userService.deleteUserById(id);
+        personService.deletePersonById(id);
     }
 }
