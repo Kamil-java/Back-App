@@ -35,7 +35,7 @@ public class DietController {
     }
 
     @GetMapping("/result/{id}")
-    public Diet getResult(@PathVariable int id){
+    public List<Diet> getResult(@PathVariable int id){
         return dietsService.getDietToUserResult(id);
     }
 

@@ -34,7 +34,6 @@ public class WorkoutService {
     }
 
     public Workout addWorkout(Workout workout) {
-        workout.setIntensity(2);
         return workoutRepository.save(workout);
     }
 

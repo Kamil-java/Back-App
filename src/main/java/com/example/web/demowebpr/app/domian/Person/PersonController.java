@@ -1,8 +1,8 @@
-package com.example.web.demowebpr.app.domian.user;
+package com.example.web.demowebpr.app.domian.Person;
 
 import com.example.web.demowebpr.app.mechanic.CalculatorKcal;
 import com.example.web.demowebpr.app.model.Person;
-import com.example.web.demowebpr.app.domian.user.service.PersonService;
+import com.example.web.demowebpr.app.domian.Person.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -35,15 +35,19 @@ public class DietsService {
         return dietsRepository.findById(id);
     }
 
-    public Diet getDietToUserResult(int id) {
+    public List<Diet> getDietToUserResult(int id) {
         List<Diet> kcal = dietsRepository.findAll(Sort.by(Sort.Direction.ASC, "kcal"));
+        List<Diet> resultList = new LinkedList<>();
+        if (id == 0 || id>=5) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         for (Diet allDiet : kcal) {
             int result = (int) dietsRepository.getResult(id).getResult();
-            if (result<=allDiet.getKcal()){
-                    return allDiet;
+            if (result>=allDiet.getKcal()){
+                    resultList.add(allDiet);
                 }
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return resultList;
     }
 
     public List<Diet> getDietsFor(int id){

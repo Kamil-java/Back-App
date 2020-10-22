@@ -1,4 +1,4 @@
-package com.example.web.demowebpr.app.domian.user.service;
+package com.example.web.demowebpr.app.domian.Person.service;
 
 import com.example.web.demowebpr.app.dao.PersonRepository;
 import com.example.web.demowebpr.app.model.Person;

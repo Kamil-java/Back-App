@@ -36,14 +36,11 @@ public class WorkoutController {
         );
     }
 
-    @GetMapping("/intensive")
-    public List<Workout> getIntensiveWorkout(){
-        return workoutService.getStrongWorkout(2);
+    @GetMapping("/strong/{id}")
+    public List<Workout> getWorkoutStrong(@PathVariable int id){
+        return workoutService.getStrongWorkout(id);
     }
-    @GetMapping("/optimal")
-    public List<Workout> getOptimalWorkout(){
-        return workoutService.getStrongWorkout(1);
-    }
+
 
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -60,6 +57,7 @@ public class WorkoutController {
         Workout oldWorkout = workoutService.getWorkoutById(id).orElse(addWorkout(workout));
         oldWorkout.setTitleWorkout(workout.getTitleWorkout());
         oldWorkout.setWorkout(workout.getWorkout());
+        oldWorkout.setIntensity(workout.getIntensity());
         return workoutService.addWorkout(oldWorkout);
     }
 
