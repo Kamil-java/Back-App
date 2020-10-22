@@ -9,7 +9,7 @@ This project is an Api that works with the database and controls the activities 
 
 ## Technologies
 Project is created with:
-* Java language
+* Java 11
 * Spring Boot
 * Spring Data
 * Spring Security
