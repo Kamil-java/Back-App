@@ -11,9 +11,10 @@ This project is an Api that works with the database and controls the activities 
 Project is created with:
 * Java 11
 * Spring Boot
-* Spring Data
+* Spring Data JPA
 * Spring Security
 * Spring Web
+* Gradle
 
 ## Setup
 To run this project you must have Java11 + installed and then:
